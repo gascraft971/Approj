@@ -33,12 +33,14 @@
 				<li class="nav-item">
 					<a class="nav-link" href="{{ route("posts.index") }}">All posts</a>
 				</li>
+				<li class="nav-item">
+					<a class="nav-link float-right" href="{{ route("posts.create") }}">
+						<button class="btn btn-primary btn-sm"><i class="fa fa-plus"></i> New Post</button>
+					</a>
+				</li>
 			</ul>
 		</div>
 		<!-- Collapsible wrapper -->
-		<a class="nav-link" href="{{ route("posts.create") }}">
-			<button class="btn btn-primary btn-lg"><i class="fa fa-plus"></i> New Post</button>
-		</a>
 		</div>
 		<!-- Container wrapper -->
 	</nav>
