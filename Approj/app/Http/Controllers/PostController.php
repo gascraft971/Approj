@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Post;
 use Illuminate\Http\Request;
+use Illumonate\Support\Str;
 
 class PostController extends Controller
 {
@@ -14,7 +15,7 @@ class PostController extends Controller
      */
     public function index()
     {
-        //
+        return "<a href=\"/posts\">Posts</a>";
     }
 
     /**
@@ -35,7 +36,20 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // Validate posted form data
+        $validated = $request->validate([
+            "title" => "required|string|unique:posts|min:5|max:100",
+            "content" => "required|string|min:5|max:12000",
+            "category" => "required|string|max:30"
+        ]);
+
+        // Create slug from title
+        $validated["slug"] = Str::slug($validated["title"], "-");
+
+        // Create and save post with validated data
+        $post = Post::create($validated);
+
+        return redirect(route("posts.show", [$post>slug]))->with("notification", "Post created!");
     }
 
     /**

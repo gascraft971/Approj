@@ -6,7 +6,7 @@
 
 <form method="POST" action="{{ route("posts.store") }}">
 	@csrf
-	
+	@include("partials.errors")
 
 	<div class="form-outline">
 		<input type="text" id="title-input" name="title" value="{{ old("title") }}" class="form-control" minlength="5" maxlength="100" required="required"/>
@@ -31,6 +31,12 @@
 			<option value="javascript" {{ old('category') === 'javascript' ? 'selected' : null }}>JavaScript</option>
 			<option value="php" {{ old('category') === 'php' ? 'selected' : null }}>PHP</option>
 		</select>
+	</div>
+
+	<div class="field">
+		<div class="control">
+			<button type="submit" class="btn btn-outline-primary">Publish</button>
+		</div>
 	</div>
 </form>
 @endsection
