@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<meta http-equiv="X-UA-Compatible" content="ie=edge">
-	<title>@yield("title") - Approj</title>
+	<title>@yield("title") &middot; Approj</title>
 
 	<!-- Font Awesome -->
 	<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" rel="stylesheet"/>
@@ -36,9 +36,40 @@
 					<a class="nav-link" href="{{ route("posts.index") }}">All posts</a>
 				</li>
 			</ul>
+			@auth
 			<a href="{{ route("posts.create") }}">
 				<button class="btn btn-primary btn-sm"><i class="fa fa-plus"></i> New Post</button>
 			</a>
+			@endauth
+			<div class="dropdown">
+				<button class="dropdown-toggle btn btn-light" type="button" id="accountDropdownButton" data-bs-toggle="dropdown" aria-expanded="false">
+					<i class="far fa-user"></i>
+				</button>
+				<ul class="dropdown-menu dropdown-menu-end" aria-labelledby="#accountDropdownButton">
+					@guest
+						@if (Route::has('login'))
+							<li><a class="dropdown-item" href="{{ route('login') }}">Login</a></li>
+						@endif
+						
+						@if (Route::has('register'))
+							<li><a class="dropdown-item" href="{{ route('register') }}">Register</a></li>
+						@endif
+					@else
+						<li><a class="dropdown-item" href="#">{{ Auth::user()->name }}</a></li>
+						<li><hr class="dropdown-divider"></li>
+							
+						<a class="dropdown-item" href="{{ route('logout') }}"
+							onclick="event.preventDefault();
+							document.getElementById('logout-form').submit();">
+							Logout
+						</a>
+	
+						<form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+							@csrf
+						</form>
+					@endguest
+				</ul>
+			</div>
 		</div>
 		<!-- Collapsible wrapper -->
 		</div>

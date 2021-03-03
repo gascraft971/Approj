@@ -1,6 +1,6 @@
 @section("title", "Edit Post")
 @section("action", route("posts.create"))
-@extends("layout")
+@extends("layouts.app")
 @section("content")
 <link href="{{ asset("css/posts/create.css") }}" rel="stylesheet"/>
 <h1>Edit: {{ $post->title }}</h1>

@@ -1,8 +1,9 @@
 @section("title", "Home")
-@extends("layout")
+@extends("layouts.app")
 
 @section("content")
 <link href="{{ asset("css/posts/index.css") }}" rel="stylesheet"/>
+@include("partials.errors")
 
 <div class="posts">
 @foreach ($posts as $post)

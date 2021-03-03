@@ -1,5 +1,5 @@
 @section("title", "New Post")
-@extends("layout")
+@extends("layouts.app")
 
 @section("content")
 <link href="{{ asset("css/posts/create.css") }}" rel="stylesheet"/>

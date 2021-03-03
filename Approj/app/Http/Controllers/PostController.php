@@ -29,7 +29,11 @@ class PostController extends Controller
      */
     public function create()
     {
-        return view("posts.create");
+        if (auth()->user()->role == "admin") {
+            return view("posts.create");
+        }
+
+        return redirect("posts")->with("notification", "You don't have admin access.");
     }
 
     /**
@@ -40,20 +44,24 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-        // Validate posted form data
-        $validated = $request->validate([
-            "title" => "required|string|unique:posts|min:5|max:100",
-            "content" => "required|string|min:5|max:5000",
-            "category" => "required|string|max:30"
-        ]);
+        if (auth()->user()->role == "admin") {
+            // Validate posted form data
+            $validated = $request->validate([
+                "title" => "required|string|unique:posts|min:5|max:100",
+                "content" => "required|string|min:5|max:5000",
+                "category" => "required|string|max:30"
+            ]);
 
-        // Create slug from title
-        $validated["slug"] = Str::slug($validated["title"], "-");
+            // Create slug from title
+            $validated["slug"] = Str::slug($validated["title"], "-");
 
-        // Create and save post with validated data
-        $post = Post::create($validated);
+            // Create and save post with validated data
+            $post = Post::create($validated);
 
-        return redirect(route("posts.show", [$post->slug]))->with("notification", "Post created!");
+            return redirect(route("posts.show", [$post->slug]))->with("notification", "Post created!");
+        }
+
+        return redirect("posts")->with("notification", "You don't have admin access.");
     }
 
     /**
@@ -76,7 +84,11 @@ class PostController extends Controller
      */
     public function edit(Post $post)
     {
-        return view("posts.edit", compact("post"));
+        if (auth()->user()->role == "admin") {
+            return view("posts.edit", compact("post"));
+        }
+
+        return redirect("posts")->with("notification", "You don't have admin access.");
     }
 
     /**
@@ -88,20 +100,24 @@ class PostController extends Controller
      */
     public function update(Request $request, Post $post)
     {
-        // Validate posted form data
-        $validated = $request->validate([
-            "title" => "required|string|min:5|max:100",
-            "content" => "required|string|min:5|max:5000",
-            "category" => "required|string|max:30"
-        ]);
+        if (auth()->user()->role == "admin") {
+            // Validate posted form data
+            $validated = $request->validate([
+                "title" => "required|string|min:5|max:100",
+                "content" => "required|string|min:5|max:5000",
+                "category" => "required|string|max:30"
+            ]);
 
-        // Create slug from title
-        $validated["slug"] = Str::slug($validated["title"], "-");
+            // Create slug from title
+            $validated["slug"] = Str::slug($validated["title"], "-");
 
-        // Create and save post with validated data
-        $post->update($validated);
+            // Create and save post with validated data
+            $post->update($validated);
 
-        return redirect(route("posts.index", [$post->slug]))->with("notification", "Post updated!");
+            return redirect(route("posts.index", [$post->slug]))->with("notification", "Post updated!");
+        }
+
+        return redirect("posts")->with("notification", "You don't have admin access.");
     }
 
     /**
@@ -112,10 +128,14 @@ class PostController extends Controller
      */
     public function destroy(Post $post)
     {
-        // Delete the specified post
-        $post->delete();
+        if (auth()->user()->role == "admin") {
+            // Delete the specified post
+            $post->delete();
 
-        // Redirect user with a notification
-        return redirect(route("posts.index"))->with("notification", "\"{$post->title}\" deleted!");
+            // Redirect user with a notification
+            return redirect(route("posts.index"))->with("notification", "\"{$post->title}\" deleted!");
+        }
+
+        return redirect("posts")->with("notification", "You don't have admin access.");
     }
 }
