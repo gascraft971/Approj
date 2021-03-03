@@ -1,0 +1,57 @@
+html,
+body {
+    height: 100%;
+}
+
+main {
+    min-height: 100%;
+}
+
+.note {
+    padding: 10px;
+    border-left: 6px solid;
+    border-radius: 5px;
+}
+
+.note strong {
+    font-weight: 600;
+}
+
+.note p {
+    font-weight: 500;
+}
+
+.note-primary {
+    background-color: #e1ecfd;
+    border-color: #1266f1;
+}
+
+.note-secondary {
+    background-color: #f4e3ff;
+    border-color: #b23cfd;
+}
+
+.note-success {
+    background-color: #c6ffdd;
+    border-color: #00b74a;
+}
+
+.note-danger {
+    background-color: #fee3e8;
+    border-color: #f93154
+}
+
+.note-warning {
+    background-color: #fff1d6;
+    border-color: #ffa900
+}
+
+.note-info {
+    background-color: #e1f6fc;
+    border-color: #39c0ed
+}
+
+.note-light {
+    background-color: #fbfbfb;
+    border-color: #262626
+}

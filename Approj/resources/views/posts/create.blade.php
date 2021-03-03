@@ -2,21 +2,22 @@
 @extends("layout")
 
 @section("content")
+<link href="{{ asset("css/posts/create.css") }}" rel="stylesheet"/>
 <h1>Create a new post</h1>
 
 <form method="POST" action="{{ route("posts.store") }}">
 	@csrf
 	@include("partials.errors")
 
-	<div class="form-outline">
+	<div class="form-floating">
 		<input type="text" id="title-input" name="title" value="{{ old("title") }}" class="form-control" minlength="5" maxlength="100" required="required"/>
 		<label class="form-label" for="title-input">Title</label>
 	</div>
 
 	<br/>
 
-	<div class="form-outline">
-		<textarea type="text" id="content-input" name="content" class="form-control" minlength="5" maxlength="2000" required="required" rows="10">{{ old("content") }}</textarea>
+	<div class="form-floating">
+		<textarea type="text" id="content-input" name="content" class="form-control" minlength="5" maxlength="5000" required="required" rows="10">{{ old("content") }}</textarea>
 		<label class="form-label" for="content-input">Content</label>
 	</div>
 
@@ -26,10 +27,10 @@
 		<label class="form-label" for="category-input">Category</label>
 		<select name="category" id="category-input" required>
 			<option value="" disabled selected>Select category</option>
-			<option value="html" {{ old('category') === 'html' ? 'selected' : null }}>HTML</option>
-			<option value="css" {{ old('category') === 'css' ? 'selected' : null }}>CSS</option>
-			<option value="javascript" {{ old('category') === 'javascript' ? 'selected' : null }}>JavaScript</option>
-			<option value="php" {{ old('category') === 'php' ? 'selected' : null }}>PHP</option>
+			<option value="HTML" {{ old('category') === 'HTML' ? 'selected' : null }}>HTML</option>
+			<option value="CSS" {{ old('category') === 'CSS' ? 'selected' : null }}>CSS</option>
+			<option value="JavaScript" {{ old('category') === 'JavaScript' ? 'selected' : null }}>JavaScript</option>
+			<option value="PHP" {{ old('category') === 'PHP' ? 'selected' : null }}>PHP</option>
 		</select>
 	</div>
 

@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Post;
 use Illuminate\Http\Request;
-use Illumonate\Support\Str;
+use Illuminate\Support\Str;
 
 class PostController extends Controller
 {
@@ -15,7 +15,11 @@ class PostController extends Controller
      */
     public function index()
     {
-        return "<a href=\"/posts\">Posts</a>";
+        // Get all posts ordered by the newest first$
+        $posts = Post::latest()->get();
+
+        // Pass post collection to view
+        return view("posts.index", compact("posts"));
     }
 
     /**
@@ -39,7 +43,7 @@ class PostController extends Controller
         // Validate posted form data
         $validated = $request->validate([
             "title" => "required|string|unique:posts|min:5|max:100",
-            "content" => "required|string|min:5|max:12000",
+            "content" => "required|string|min:5|max:5000",
             "category" => "required|string|max:30"
         ]);
 
@@ -49,7 +53,7 @@ class PostController extends Controller
         // Create and save post with validated data
         $post = Post::create($validated);
 
-        return redirect(route("posts.show", [$post>slug]))->with("notification", "Post created!");
+        return redirect(route("posts.show", [$post->slug]))->with("notification", "Post created!");
     }
 
     /**
@@ -60,7 +64,8 @@ class PostController extends Controller
      */
     public function show(Post $post)
     {
-        //
+        // Pass current post to view
+        return view("posts.show", compact("post"));
     }
 
     /**
@@ -71,7 +76,7 @@ class PostController extends Controller
      */
     public function edit(Post $post)
     {
-        //
+        return view("posts.edit", compact("post"));
     }
 
     /**
@@ -83,7 +88,20 @@ class PostController extends Controller
      */
     public function update(Request $request, Post $post)
     {
-        //
+        // Validate posted form data
+        $validated = $request->validate([
+            "title" => "required|string|min:5|max:100",
+            "content" => "required|string|min:5|max:5000",
+            "category" => "required|string|max:30"
+        ]);
+
+        // Create slug from title
+        $validated["slug"] = Str::slug($validated["title"], "-");
+
+        // Create and save post with validated data
+        $post->update($validated);
+
+        return redirect(route("posts.index", [$post->slug]))->with("notification", "Post updated!");
     }
 
     /**
@@ -94,6 +112,10 @@ class PostController extends Controller
      */
     public function destroy(Post $post)
     {
-        //
+        // Delete the specified post
+        $post->delete();
+
+        // Redirect user with a notification
+        return redirect(route("posts.index"))->with("notification", "\"{$post->title}\" deleted!");
     }
 }

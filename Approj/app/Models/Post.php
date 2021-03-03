@@ -11,4 +11,12 @@ class Post extends Model
 
     // Set mass-assignable fields
     protected $fillable = ["title", "content", "category", "slug"];
+
+    /**
+     * Get the route keyfor the model
+     * @return string
+     */
+    public function getRouteKeyName() {
+        return "slug";
+    }
 }
