@@ -10,7 +10,7 @@ class Post extends Model
     use HasFactory;
 
     // Set mass-assignable fields
-    protected $fillable = ["title", "content", "category", "slug"];
+    protected $fillable = ["title", "content", "category", "image", "slug"];
 
     /**
      * Get the route keyfor the model

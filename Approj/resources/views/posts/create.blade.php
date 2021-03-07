@@ -9,6 +9,8 @@
 	@csrf
 	@include("partials.errors")
 
+	<input type="hidden" name="image" value="https://via.placeholder.com/750x450"/>
+
 	<div class="form-floating">
 		<input type="text" id="title-input" name="title" value="{{ old("title") }}" class="form-control" minlength="5" maxlength="100" required="required"/>
 		<label class="form-label" for="title-input">Title</label>
@@ -16,10 +18,11 @@
 
 	<br/>
 
-	<div class="form-floating">
+	<!--<div class="form-floating">
 		<textarea type="text" id="content-input" name="content" class="form-control" minlength="5" maxlength="5000" required="required" rows="10">{{ old("content") }}</textarea>
 		<label class="form-label" for="content-input">Content</label>
-	</div>
+	</div>-->
+	<input type="hidden" name="content" value='{"time":"{{ time() }}","blocks":[],"version":"2.19.1"}'>
 
 	<br/>
 

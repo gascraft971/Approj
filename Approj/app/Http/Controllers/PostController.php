@@ -49,7 +49,8 @@ class PostController extends Controller
             $validated = $request->validate([
                 "title" => "required|string|unique:posts|min:5|max:100",
                 "content" => "required|string|min:5|max:5000",
-                "category" => "required|string|max:30"
+                "category" => "required|string|max:30",
+                "image" => "required|string|max:500"
             ]);
 
             // Create slug from title

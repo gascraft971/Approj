@@ -12,16 +12,16 @@
 	<link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" rel="stylesheet"/>
 	<!-- Bootstrap 5 -->
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
-	<!-- Main app CSS code, shared by all views -->
+	<!-- Main app CSS, shared by all views -->
 	<link href="{{ asset("css/main.css") }}" rel="stylesheet"/>
 </head>
 <body>
 	<!-- Navbar -->
-	<nav class="navbar navbar-expand-sm navbar-light bg-light">
+	<nav class="navbar navbar-expand-sm navbar-light bg-light fixed-top">
 		<!-- Container wrapper -->
 		<div class="container-fluid">
 		<!-- Navbar brand -->
-		<a class="navbar-brand" href="#">Approj</a>
+		<a class="navbar-brand me-3" href="#">Approj</a>
 	
 		<!-- Toggle button -->
 		<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -31,9 +31,18 @@
 		<!-- Collapsible wrapper -->
 		<div class="collapse navbar-collapse" id="navbarSupportedContent">
 			<!-- Links -->
-			<ul class="navbar-nav me-auto mb-2 mb-lg-0">
+			<ul class="navbar-nav me-auto mb-2 mb-sm-0">
 				<li class="nav-item">
-					<a class="nav-link" href="{{ route("posts.index") }}">All posts</a>
+					<a class="nav-link" href="{{ route("posts.index") }}">Home</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="#">CSS</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="#">JavaScript</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="#">HTML</a>
 				</li>
 			</ul>
 			@auth
@@ -41,35 +50,33 @@
 				<button class="btn btn-primary btn-sm"><i class="fa fa-plus"></i> New Post</button>
 			</a>
 			@endauth
+
+			<!-- Profile dropdown -->
+			@guest
+				@if (Route::has('login'))
+					<a class="nav-link" href="{{ route('login') }}">Login</a>
+				@endif
+			@else
 			<div class="dropdown">
 				<button class="dropdown-toggle btn btn-light" type="button" id="accountDropdownButton" data-bs-toggle="dropdown" aria-expanded="false">
 					<i class="far fa-user"></i>
 				</button>
 				<ul class="dropdown-menu dropdown-menu-end" aria-labelledby="#accountDropdownButton">
-					@guest
-						@if (Route::has('login'))
-							<li><a class="dropdown-item" href="{{ route('login') }}">Login</a></li>
-						@endif
+					<li><a class="dropdown-item" href="#">{{ Auth::user()->name }}</a></li>
+					<li><hr class="dropdown-divider"></li>
 						
-						@if (Route::has('register'))
-							<li><a class="dropdown-item" href="{{ route('register') }}">Register</a></li>
-						@endif
-					@else
-						<li><a class="dropdown-item" href="#">{{ Auth::user()->name }}</a></li>
-						<li><hr class="dropdown-divider"></li>
-							
-						<a class="dropdown-item" href="{{ route('logout') }}"
-							onclick="event.preventDefault();
-							document.getElementById('logout-form').submit();">
-							Logout
-						</a>
-	
-						<form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-							@csrf
-						</form>
-					@endguest
+					<a class="dropdown-item bg-danger text-white" href="{{ route('logout') }}"
+						onclick="event.preventDefault();
+						document.getElementById('logout-form').submit();">
+						Logout
+					</a>
+
+					<form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+						@csrf
+					</form>
 				</ul>
 			</div>
+			@endguest
 		</div>
 		<!-- Collapsible wrapper -->
 		</div>

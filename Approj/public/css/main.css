@@ -7,6 +7,15 @@ main {
     min-height: 100%;
 }
 
+#navbarSupportedContent {
+    font-family: "Roboto";
+    font-weight: 100;
+}
+
+#navbarSupportedContent li {
+    margin-right: .5rem;
+}
+
 .note {
     padding: 10px;
     border-left: 6px solid;

@@ -20,6 +20,7 @@ class CreatePostsTable extends Migration
                 $table->string("content", 5000);
                 $table->string("category", 30);
                 $table->string("slug", 200)->unique();
+                $table->string("image", 500);
                 $table->timestamps();
             });
         }

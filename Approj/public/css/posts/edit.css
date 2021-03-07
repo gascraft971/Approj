@@ -1,0 +1,157 @@
+#delete-page {
+    margin-right: 1em;
+}
+
+#delete-page .btn {
+    width: 48px;
+    height: 48px;
+    font-size: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all .3s;
+}
+
+#delete-page .btn:hover {
+    background: #f93154;
+}
+
+#delete-page svg {
+    position: absolute;
+    color: #f93154;
+    transition: all .3s;
+}
+
+#delete-page .btn:hover svg {
+    color: #fff;
+}
+
+.loader {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.loader div svg {
+    display: block;
+    margin: 0 auto;
+}
+
+.loader div p {
+    font-family: Roboto;
+	font-weight: 100;
+    margin-top: 10px;
+}
+
+#loader {
+    height: 100%;
+}
+
+#editorjs-container {
+    max-width: 900px;
+    min-height: 100%;
+}
+
+#editorjs {
+    margin-top: 70px;
+}
+
+#toolbar {
+    opacity: 0;
+    position: fixed;
+    width: 300px;
+    bottom: 20px;
+    left: calc(50% - (300px / 2));
+    height: 40px;
+    border-radius: 7px;
+    background: #FFF;
+    z-index: 2;
+    align-items: center;
+    justify-content: space-between;
+    transition: all .5s;
+}
+
+#toolbar .btn {
+    height: 40px;
+    box-shadow: none;
+    width: 40px;
+}
+
+#toolbar i {
+    font-size: 1.1rem;
+    display: inline-block;
+}
+
+#toolbar .btn-group {
+    width: 100%;
+    box-shadow: none;
+}
+
+#toolbar .btn-group .btn:last-child {
+    border-radius: .25rem 0 0 .25rem;
+}
+
+#toolbar .save-btn {
+    width: 45%;
+    border-left: 1px solid #e2e2e2;
+    border-radius: 0;
+}
+
+#toolbar .save-btn span {
+    position: relative;
+    bottom: 2.5px;
+}
+#toolbar .save-arrow {
+    animation: spin .5s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% {  transform: rotate(359deg); }
+}
+
+.menu {
+    display: grid;
+}
+
+.menu-buttons {
+    display: flex;
+    margin-top: 5px;
+}
+
+.dropdown-btn {
+    padding: 3px 7px 5px 7px;
+    outline: none;
+    text-transform: none;
+    font-family: Roboto;
+    font-weight: 400;
+    letter-spacing: .4px;
+    color: black;
+    font-size: 0.8rem;
+    box-shadow: none;
+}
+
+.dropdown-btn:hover {
+    box-shadow: none;
+}
+
+.dropdown-btn:focus {
+    box-shadow: none;
+}
+
+#post-title-input {
+	width: 300px;
+	height: 2rem;
+	padding: .6em;
+	border: 1px solid #0001;
+	background: transparent;
+	display: inline;
+}
+
+#post-title-input[disabled] {
+    background: #e9ecef;
+	color: #c8bebe;
+	font-weight: 400;
+}
