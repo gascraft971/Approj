@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Models\Post;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,7 +16,16 @@ use Illuminate\Support\Facades\Route;
 
 Route::get("/", "PostController@index");
 Route::resource("posts", "PostController");
-
+Route::get("/dashboard", function() {
+	return view("dashboard.index");
+});
+/*Route::post("/dashboard#{category}", function($category) {
+	return view("dashboard.categories.$category.index");
+});*/
+Route::post("/dashboard/{category}", function($category) {
+	$posts = Post::latest()->get();
+	return view("dashboard.categories.$category.index", compact("posts"));
+});
 
 Auth::routes();
 

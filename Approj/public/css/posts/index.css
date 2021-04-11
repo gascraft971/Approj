@@ -21,7 +21,7 @@
 .featured-post img {
     position: relative;
 	height: 100%;
-    width: auto;
+    width: 100%;
 }
 
 .featured-post .card-body {

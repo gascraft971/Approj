@@ -62,7 +62,8 @@
 					<i class="far fa-user"></i>
 				</button>
 				<ul class="dropdown-menu dropdown-menu-end" aria-labelledby="#accountDropdownButton">
-					<li><a class="dropdown-item" href="#">{{ Auth::user()->name }}</a></li>
+					<li><a class="dropdown-item disabled" href="#">{{ Auth::user()->name }}</a></li>
+					<li><a class="dropdown-item" href="/dashboard">Dashboard</a></li>
 					<li><hr class="dropdown-divider"></li>
 						
 					<a class="dropdown-item bg-danger text-white" href="{{ route('logout') }}"
