@@ -94,4 +94,5 @@ $sections = [
 </main>
 
 <script src="{{ asset("js/dashboard/index.js") }}"></script>
+<script src="{{ asset("js/dashboard/categories.js") }}"></script>
 @endsection

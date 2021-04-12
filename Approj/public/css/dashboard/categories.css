@@ -4,9 +4,36 @@
 	padding-top: 100px;
 }
 
-#pages table td input[type=checkbox] {
-	margin: .875rem 1rem;
+#pages .title {
+	display: flex;
+	align-items: center;
 }
 
-#pages table .page-title {
+#pages .title h1 {
+	flex-grow: 1;
+}
+
+#pages .title span {
+	flex-shrink: 0;
+}
+
+#pages table {
+	width: 100%;
+}
+
+#pages table tr {
+	padding-top: 20px;
+	padding-bottom: 20px;
+}
+
+#pages table tr:nth-child(even) {
+	background-color: #fafafa;
+}
+
+#pages table tr td:first-child, #pages table tr .edit-button, #pages table tr .delete-button {
+	width: 10px;
+}
+
+#pages table td input[type=checkbox] {
+	margin: .8rem .95rem;
 }

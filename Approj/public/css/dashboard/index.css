@@ -5,7 +5,7 @@ main {
 }
 
 aside {
-    width: 300px;
+    width: 250px;
     border-radius: 0 10px 10px 0;
     height: 100%;
     flex-shrink: 0;
