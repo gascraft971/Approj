@@ -1,4 +1,4 @@
-@section("title", "New Post")
+{{-- @section("title", "New Post")
 @extends("layouts.app")
 
 @section("content")
@@ -16,12 +16,6 @@
 		<label class="form-label" for="title-input">Title</label>
 	</div>
 
-	<br/>
-
-	<!--<div class="form-floating">
-		<textarea type="text" id="content-input" name="content" class="form-control" minlength="5" maxlength="5000" required="required" rows="10">{{ old("content") }}</textarea>
-		<label class="form-label" for="content-input">Content</label>
-	</div>-->
 	<input type="hidden" name="content" value='{"time":"{{ time() }}","blocks":[],"version":"2.19.1"}'>
 
 	<br/>
@@ -43,4 +37,6 @@
 		</div>
 	</div>
 </form>
-@endsection
+@endsection --}}
+<?php
+return redirect()->route("posts.store");

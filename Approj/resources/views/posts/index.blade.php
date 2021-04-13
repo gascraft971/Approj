@@ -11,7 +11,7 @@
 <section id="featured">
 	<div class="wrapper mx-auto">
 		<div class="row">
-		@foreach ($posts->slice(2, 3) as $post)
+		@foreach ($posts->slice(1, 2) as $post)
 			<div class="col-sm-6">@include("posts.templates.featured")</div>
 		@endforeach
 		</div>

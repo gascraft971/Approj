@@ -1,3 +1,11 @@
+#main {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	height: 100%;
+	flex-direction: column;
+}
+
 #pages {
 	padding-left: 200px;
 	padding-right: 200px;
@@ -36,4 +44,36 @@
 
 #pages table td input[type=checkbox] {
 	margin: .8rem .95rem;
+}
+
+#products {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	height: 100%;
+	flex-direction: column;
+}
+
+#themes {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	height: 100%;
+	flex-direction: column;
+}
+
+#money {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	height: 100%;
+	flex-direction: column;
+}
+
+#navigation {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	height: 100%;
+	flex-direction: column;
 }

@@ -16,7 +16,7 @@ class CreatePostsTable extends Migration
         if (!Schema::hasTable('posts')) {
             Schema::create("posts", function (Blueprint $table) {
                 $table->bigIncrements('id');
-                $table->string("title", 100)->unique();
+                $table->string("title", 100);
                 $table->string("content", 5000);
                 $table->string("category", 30);
                 $table->string("slug", 200)->unique();

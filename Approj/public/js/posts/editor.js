@@ -195,7 +195,7 @@ function save_changes(editor) {
                     .replaceWith($("<i/>").addClass("bi-arrow-repeat save-arrow"))
             });
         $("#toolbar .save-btn span").html("");
-        title = $("#post-title").text();
+        title = $("#post-title-input").val();
         output = JSON.stringify(output);
         $.post({
             url: $("#editorjs").attr("data-post-route"),

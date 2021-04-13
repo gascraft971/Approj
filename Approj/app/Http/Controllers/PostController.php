@@ -47,14 +47,19 @@ class PostController extends Controller
         if (auth()->user()->role == "admin") {
             // Validate posted form data
             $validated = $request->validate([
-                "title" => "required|string|unique:posts|min:5|max:100",
+                /*"title" => "string|unique:posts|min:5|max:100",
                 "content" => "required|string|min:5|max:5000",
-                "category" => "required|string|max:30",
-                "image" => "required|string|max:500"
+                "category" => "string|max:30",
+                "image" => "required|string|max:500"*/
             ]);
 
+            $validated["title"] = "Untitled post";
+            $validated["content"] = '{"time":"' . time() . '","blocks":[],"version":"2.19.1"}';
+            $validated["category"] = "CSS";
+            $validated["image"] = "https://via.placeholder.com/750x450";
+
             // Create slug from title
-            $validated["slug"] = Str::slug($validated["title"], "-");
+            $validated["slug"] = rand(0, 100000000) . "-" . Str::slug($validated["title"], "-");
 
             // Create and save post with validated data
             $post = Post::create($validated);
@@ -106,8 +111,12 @@ class PostController extends Controller
             $validated = $request->validate([
                 "title" => "required|string|min:5|max:100",
                 "content" => "required|string|min:5|max:5000",
-                "category" => "required|string|max:30"
+                "category" => "string|max:30"
             ]);
+
+            if($validated["category"] == "") {
+                $validated["category"] = "CSS";
+            }
 
             // Create slug from title
             $validated["slug"] = Str::slug($validated["title"], "-");

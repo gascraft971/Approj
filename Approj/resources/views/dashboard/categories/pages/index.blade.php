@@ -7,7 +7,7 @@
 		<span class="input-group-text border-0">
 			<input class="form-check-input main-selection-checkbox" type="checkbox" value="">
 		</span>
-		<input type="text" class="form-control" placeholder="Search for a page here..."/>
+		<input type="text" class="form-control" placeholder="Search for a page here..." disabled="disabled"/>
 		<span class="input-group-text border-0 p-0 not-allowed">
 			<button class="btn btn-sm shadow-0" disabled="disabled">
 				<i class="bi-filter" style="font-size: 2em;"></i>
@@ -36,12 +36,15 @@
 	</table>
 
 	<div class="fixed-action-btn">
-		<a href="#pages" class="btn btn-floating btn-primary btn-lg" data-route="{{ route("posts.create") }}">
-			<i class="bi-file-earmark-plus" style="width: 2.8125rem; line-height: 2.8125rem; font-size: 1.5em;"></i>
-		</a>
+		<form method="POST" action="{{ route("posts.store") }}">
+			@csrf
+			<button type="sumbit" class="btn btn-floating btn-primary btn-lg" style="width: 3.813rem; height: 3.813rem;">
+				<i class="bi-file-earmark-plus" style="width: 2.8125rem; line-height: 2.8125rem; font-size: 2em;"></i>
+			</button>
+		</form>
 	</div>
 	
-	<div class="modals">
+	{{-- <div class="modals">
 		<!-- New page creation modal -->
 		<div class="modal top fade" id="page-creation-modal" tabindex="-1" aria-hidden="true">
 			<div class="modal-dialog modal-dialog-centered">
@@ -61,7 +64,7 @@
 				</div>
 			</div>
 		</div>
-	</div>
+	</div> --}}
 </div>
 <script>
 	$(() => {
@@ -101,12 +104,12 @@
 			}
 		});
 
-		$("#pages .fixed-action-btn a").on("click", function(event) {
+		/* $("#pages .fixed-action-btn a").on("click", function(event) {
 			var modal = new mdb.Modal(document.getElementById("page-creation-modal"), {});
 			modal.show();
 			$("#page-creation-modal .submit-button").on("click", function() {
 				
 			})
-		});
+		}); */
 	});
 </script>

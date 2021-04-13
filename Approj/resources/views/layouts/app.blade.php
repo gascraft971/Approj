@@ -46,9 +46,10 @@
 				</li>
 			</ul>
 			@auth
-			<a href="{{ route("posts.create") }}">
-				<button class="btn btn-primary btn-sm"><i class="fa fa-plus"></i> New Post</button>
-			</a>
+			<form method="POST" action="{{ route("posts.store") }}">
+				@csrf
+				<button class="btn btn-primary btn-sm"><i class="fa fa-plus"></i>New Post</button>
+			</form>
 			@endauth
 
 			<!-- Profile dropdown -->
