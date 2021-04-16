@@ -46,20 +46,24 @@ class PostController extends Controller
     {
         if (auth()->user()->role == "admin") {
             // Validate posted form data
-            $validated = $request->validate([
-                /*"title" => "string|unique:posts|min:5|max:100",
-                "content" => "required|string|min:5|max:5000",
-                "category" => "string|max:30",
-                "image" => "required|string|max:500"*/
-            ]);
+            $validated = $request->validate([]);
 
             $validated["title"] = "Untitled post";
-            $validated["content"] = '{"time":"' . time() . '","blocks":[],"version":"2.19.1"}';
+
+            // Set basic EditorJS content
+            $validated["content"] = '{"time":"' . time() . '","blocks":[],"version":"2.20.2"}';
+
+            // TODO: Change category system
             $validated["category"] = "CSS";
+
+            // TODO: Add image change option in editor
             $validated["image"] = "https://via.placeholder.com/750x450";
 
             // Create slug from title
             $validated["slug"] = rand(0, 100000000) . "-" . Str::slug($validated["title"], "-");
+
+            // Create UUID
+            $validated["uuid"] = Str::uuid();
 
             // Create and save post with validated data
             $post = Post::create($validated);
@@ -88,9 +92,10 @@ class PostController extends Controller
      * @param  \App\Models\Post  $post
      * @return \Illuminate\Http\Response
      */
-    public function edit(Post $post)
+    public function edit($uuid)
     {
         if (auth()->user()->role == "admin") {
+            $post = Post::where("uuid", $uuid)->get()[0];
             return view("posts.edit", compact("post"));
         }
 
@@ -104,9 +109,10 @@ class PostController extends Controller
      * @param  \App\Models\Post  $post
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Post $post)
+    public function update(Request $request, $uuid)
     {
         if (auth()->user()->role == "admin") {
+            $post = Post::where("uuid", $uuid)->get()[0];
             // Validate posted form data
             $validated = $request->validate([
                 "title" => "required|string|min:5|max:100",
@@ -119,12 +125,10 @@ class PostController extends Controller
             }
 
             // Create slug from title
-            $validated["slug"] = Str::slug($validated["title"], "-");
+            $validated["slug"] = rand(0, 100000000) . "-" . Str::slug($validated["title"], "-");
 
             // Create and save post with validated data
             $post->update($validated);
-
-            return redirect(route("posts.index", [$post->slug]))->with("notification", "Post updated!");
         }
 
         return redirect("posts")->with("notification", "You don't have admin access.");

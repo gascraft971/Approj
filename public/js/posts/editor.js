@@ -3,12 +3,12 @@ $(() => {
         "editorjs@latest",
         "header@latest",
         "list@latest",
-        "delimiter@1.2.0/dist/bundle.min.js",
-        "image@2.6.0/dist/bundle.min.js",
+        "delimiter@latest",
+        "image@latest",
         "quote@latest",
         "marker@latest",
-        "link@2.3.0/dist/bundle.min.js",
-        "warning@1.2.0/dist/bundle.min.js"
+        "link@latest",
+        "warning@latest"
     ];
     $.ajaxSetup({
         cache: true,
@@ -32,7 +32,6 @@ $(() => {
 			data = JSON.parse($("#post-content").text());
             init_editorjs(data);
         }, 10);
-        initMenu();
     });
 });
 
@@ -67,8 +66,8 @@ function init_editorjs(text) {
                 class: ImageTool,
                 config: {
                     endpoints: {
-                        byFile: "/approj/uploads/editorjs/byFile.php",
-                        byUrl: "/approj/uploads/editorjs/byUrl.php",
+                        byFile: "/uploads/file",
+                        byUrl: "/uploads/url",
                     }
                 },
                 captionPlaceholder: "Légende...",
@@ -208,7 +207,9 @@ function save_changes(editor) {
 			error: (data) => {
 				console.log(data.responseText);
 			}
-        }).done(() => {
+        }).done((data) => {
+            /*window.history.replaceState({}, "", `/posts/${data}/edit`);
+            $("#editorjs").attr("data-post-route", `/posts/${data}`);*/
             var today = new Date();
             var hour = today.getHours();
             var minutes = today.getMinutes().toString().padStart(2, "0");
@@ -243,69 +244,3 @@ $.getMultiScripts = (arr, path) => {
     }));
     return $.when.apply($, _arr);
 };
-
-function initMenu() {
-    /*$("#post-title input").on("change", function() { // TODO: Fix this bug
-        $(this)
-            .prop("disabled", true)
-            .next().removeClass("d-none");
-        $.post({
-            url: "/approj/update/update_2.php",
-            data: {
-                name: "page-title",
-                data: JSON.stringify([window.page_id, this.value])
-            },
-            success: () => {
-                console.log(`Successfully changed title to \"${this.value}\"`);
-                $(this)
-                    .prop("disabled", false)
-                    .next().addClass("d-none");
-            }
-        });
-    });*/
-    $("#delete-page button").click(function() { // TODO: Reimplement deletion of posts
-        var modalId = $("#delete-page-modal");
-        var modal = new mdb.Modal(modalId[0], {
-            backdrop: "static",
-            keyboard: false,
-            focus: true,
-            show: true,
-        });
-        modal.show();
-        modalId.find(".btn-danger").click(() => {
-            modalId
-                .find(".modal-body").addClass("d-flex justify-content-center align-items-center").html(
-                    $("<div>")
-                        .addClass("spinner-border my-5 text-danger")
-                        .css("width", "5em")
-                        .css("height", "5em")
-                        .append(
-                            $("<div>")
-                                .addClass("sr-only")
-                                .html("Chargement...")
-                        )
-                );
-            modalId.find(".btn").prop("disabled", true).addClass("disabled");
-            $.post({
-                url: "/approj/update/update_2.php",
-                data: {
-                    name: "page-delete",
-                    data: JSON.stringify([window.page_id, false])
-                },
-            }).done(() => {
-                modalId.hide();
-                $(".modal-backdrop").remove();
-                $("#editorjs, #toolbar, header").fadeOut("slow", () => {
-                    $("#bye-overlay")
-                        .css("display", "flex")
-                        .hide()
-                        .fadeIn("slow", () => {
-                            setTimeout(() => {
-                                window.location.replace("/approj/account/settings");
-                            }, 2000);
-                        });
-                });
-            });
-        });
-    });
-}

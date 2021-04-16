@@ -28,8 +28,8 @@
 			<tr>
 				<td><input class="form-check-input" type="checkbox" value=""></td>
 				<td class="page-title">{{ $post->title }}</td>
-				<td class="edit-button"><button class="btn btn-sm shadow-0" data-route="{{ route("posts.edit", [$post->slug]) }}">EDIT</button></td>
-				<td class="delete-button"><button class="btn btn-sm shadow-0" data-route="{{ route("posts.destroy", [$post->slug]) }}"><i class="bi-trash text-danger" style="font-size: 2em;"></i></button></td>
+				<td class="edit-button"><button class="btn btn-sm shadow-0" data-route="/post/{{ $post->uuid }}/edit">EDIT</button></td>
+				<td class="delete-button"><button class="btn btn-sm shadow-0" data-route="{{ route("posts.destroy", [$post->uuid]) }}"><i class="bi-trash text-danger" style="font-size: 2em;"></i></button></td>
 			</tr>
 			@endforeach
 		</tbody>

@@ -59,9 +59,6 @@
 
 <!-- TODO: Fix this annoying thing -->
 <div id="post-data" class="d-none">
-	<div id="post-title">
-		{{ $post->title }}
-	</div>
 	<div id="post-content">
 		{{ $post->content }}
 	</div>
@@ -70,7 +67,7 @@
 <div id="editorjs-container" class="container shadow">
 	<br/>
 	<br/>
-	<div id="editorjs" class="d-none" data-post-route="{{ route("posts.update", [$post->slug]) }}"></div>
+	<div id="editorjs" class="d-none" data-post-route="/post/{{ $post->uuid }}"></div>
 </div>
 
 <div id="toolbar" class="shadow-lg d-flex">

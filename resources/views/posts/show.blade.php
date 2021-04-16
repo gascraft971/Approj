@@ -5,6 +5,8 @@
 <link href="{{ asset("css/posts/post.css") }}" rel="stylesheet"/>
 
 <!-- Individual post view -->
+<br/>
+<br/>
 
 <div class="post card">
 	<div class="card-body">
@@ -21,7 +23,7 @@
 				@csrf
 				@method("delete")
 				<div class="d-inline">
-					<a href="{{ route("posts.edit", [$post->slug]) }}" class="btn btn-light btn-sm"><i class="fas fa-pencil-alt"></i></a>
+					<a href="/post/{{ $post->uuid }}/edit" class="btn btn-light btn-sm"><i class="fas fa-pencil-alt"></i></a>
 					<button type="submit" class="btn btn-light btn-sm"><i class="far fa-trash-alt"></i></button>
 				</div>
 			</form>
