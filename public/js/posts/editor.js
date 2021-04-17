@@ -12,10 +12,15 @@ $(() => {
     ];
     $.ajaxSetup({
         cache: true,
-		headers: {
+		/*headers: {
 			"X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content")
-		}
+		}*/
     });
+    XMLHttpRequest.prototype.realSend = XMLHttpRequest.prototype.send;
+    XMLHttpRequest.prototype.send = function(data) {
+        this.setRequestHeader("X-CSRF-TOKEN", $('meta[name="csrf-token"]').attr("content"));
+        this.realSend(data);
+    };
     $.getMultiScripts(scripts, "https://cdn.jsdelivr.net/npm/@editorjs/")
     .done(() => {
         $.ajaxSetup({
@@ -67,11 +72,9 @@ function init_editorjs(text) {
                 config: {
                     endpoints: {
                         byFile: "/uploads/file",
-                        byUrl: "/uploads/url",
+                        byUrl: "/uploads/url", // TODO: Add upload by URL
                     }
                 },
-                captionPlaceholder: "Légende...",
-                buttonContent: "Sélectionnez une image"
             },
             
             quote: {
@@ -92,7 +95,7 @@ function init_editorjs(text) {
             linkTool: {
                 class: LinkTool,
                 config: {
-                    endpoint: "", // TODO: Add this
+                    endpoint: "/linkdata",
                 }
             },
             

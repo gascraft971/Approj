@@ -155,3 +155,8 @@
 	color: #c8bebe;
 	font-weight: 400;
 }
+
+#previewModal iframe {
+    width: 100%;
+    height: 80vh;
+}

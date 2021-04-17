@@ -6,7 +6,7 @@
 <header id="navbar">
     <div class="navbar fixed-top navbar-light bg-light p-2 pb-1" style="justify-content: normal">
 		<img src="{{ asset("images/logo/icon.png") }}" height="50" class="p-1 ms-2"/>
-		<div class="menu ms-3">
+		<div class="menu ms-3 me-auto">
 			<input type="text" id="post-title-input" class="form-control" value="{{ $post->title }}"/>
 			<div class="menu-buttons">
 				<div class="menu-dropdown dropdown">
@@ -30,6 +30,7 @@
 				</div>
 			</div>
 		</div>
+		<button class="btn btn-primary" data-mdb-toggle="modal" data-mdb-target="#previewModal">PREVIEW</button>
     </div>
 </header>
 
@@ -83,5 +84,22 @@
 		<i class="bi-cloud-check"></i>
 		<span class="ml-1"></span>
 	</button>
+</div>
+
+<div id="modals">
+	<!-- Page preview modal -->
+	<div class="modal top fade" id="previewModal" tabindex="-1" aria-labelledby="Page preview modal" aria-hidden="true">
+	    <div class="modal-dialog modal-xl  modal-dialog-centered">
+	        <div class="modal-content">
+	            <div class="modal-header border-0">
+	                <h5 class="modal-title" id="exampleModalLabel">Preview</h5>
+	                <button type="button" class="btn-close" data-mdb-dismiss="modal" aria-label="Close"></button>
+	            </div>
+	            <div class="modal-body">
+					<iframe src="/posts/{{ $post->slug }}/preview"></iframe>
+				</div>
+	        </div>
+	    </div>
+	</div>
 </div>
 @endsection

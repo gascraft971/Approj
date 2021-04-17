@@ -2,6 +2,10 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Models\Post;
+use App\Http\Controllers\PostController;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\FileUploadController;
+use App\Http\Controllers\LinkDataController;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,12 +18,13 @@ use App\Models\Post;
 |
 */
 
-Route::get("/", "PostController@index");
-Route::resource("posts", "PostController");
+Route::get("/", [PostController::class, "index"]);
+Route::resource("posts", [PostController::class]);
 
 // Override Route::resource with these new and cooler things (so I can use UUID)
-Route::get("post/{uuid}/edit", "PostController@edit");
-Route::patch("post/{uuid}", "PostController@update");
+Route::get("post/{uuid}/edit", [PostController::class, "edit"]);
+Route::patch("post/{uuid}", [PostController::class, "update"]);
+Route::get("posts/{slug}/preview", [PostController::class, "preview"]);
 
 Route::get("/dashboard", function() {
 	return view("dashboard.index");
@@ -31,6 +36,8 @@ Route::post("/dashboard/{category}", function($category) {
 
 Auth::routes();
 
-Route::get("/home", [App\Http\Controllers\HomeController::class, "index"])->name("home");
+Route::get("/home", [HomeController::class, "index"])->name("home");
 
-Route::post("/uploads/file", "FileUploadController@file");
+Route::post("/uploads/file", [FileUploadController::class, "file"]);
+Route::post("/uploads/url", [FileUploadController::class, "url"]);
+Route::get("/linkdata", [LinkDataController::class, "index"]);
