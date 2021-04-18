@@ -1,8 +1,9 @@
+@extends(isset($previewMode) ? "layouts.basic" : "layouts.app")
 @section("title", $post->title)
-@extends("layouts.app")
 
 @section("content")
 <link href="{{ asset("css/posts/post.css") }}" rel="stylesheet"/>
+
 
 <!-- Individual post view -->
 <br/>
@@ -18,6 +19,7 @@
 				<h1 class="card-title">{{ $post->title }}</h1>
 			</a>
 
+			@if (!isset($previewMode))
 			@auth
 			<form method="POST" action="{{ route("posts.destroy", [$post->slug]) }}" class="d-inline-block mb-1">
 				@csrf
@@ -28,6 +30,7 @@
 				</div>
 			</form>
 			@endauth
+			@endif
 		</div>
 
 		<!-- Post info -->

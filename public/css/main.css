@@ -68,3 +68,11 @@ main {
 .not-allowed {
     cursor: not-allowed;
 }
+
+.icon-1-5x::before {
+    transform: scale(1.5);
+}
+
+.icon-2x::before {
+    transform: scale(1.5);
+}

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Post;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
+use DB;
 
 class PostController extends Controller
 {
@@ -15,8 +16,11 @@ class PostController extends Controller
      */
     public function index()
     {
-        // Get all posts ordered by the newest first$
-        $posts = Post::latest()->get();
+        // Get all posts ordered by the newest first (only published posts if guest)
+        if (auth()->user() && auth()->user()->role == "admin")
+            $posts = Post::latest()->get();
+        else
+            $posts = Post::where("published", true)->get();
 
         // Pass post collection to view
         return view("posts.index", compact("posts"));
@@ -33,7 +37,7 @@ class PostController extends Controller
             return view("posts.create");
         }
 
-        return redirect("posts")->with("notification", "You don't have admin access.");
+        return abort(404);
     }
 
     /**
@@ -71,7 +75,7 @@ class PostController extends Controller
             return redirect(route("posts.show", [$post->slug]))->with("notification", "Post created!");
         }
 
-        return redirect("posts")->with("notification", "You don't have admin access.");
+        return abort(404);
     }
 
     /**
@@ -82,14 +86,53 @@ class PostController extends Controller
      */
     public function show(Post $post)
     {
-        // Pass current post to view
-        return view("posts.show", compact("post"));
+        if ($post->published) {
+            // Pass current post to view
+            return view("posts.show", compact("post"));
+        }
+        
+        return abort(404);
+    }
+
+    /**
+     * Display a preview of a post
+     *
+     * @param  UUID $uuid
+     * @return \Illuminate\Http\Response
+     */
+    public function preview($uuid)
+    {
+        if (auth()->user()->role == "admin") {
+            $post = Post::where("uuid", $uuid)->get()[0];
+            return view("posts.show", ["post" => $post, "previewMode" => true]);
+        }
+
+        return abort(404);
+    }
+
+    /**
+     * Make the resource public
+     *
+     * @param  UUID $uuid
+     * @return \Illuminate\Http\Response
+     */
+    public function publish($uuid)
+    {
+        if (auth()->user()->role == "admin") {
+            $post = Post::where("uuid", $uuid)->get()[0];
+
+            $id = $post->id;
+            DB::update("UPDATE posts SET `published` = ?, `published_at` = ? WHERE id = ?", [true, \Carbon\Carbon::now(), $id]);
+        }
+        else {
+            return abort(404);
+        }
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Post  $post
+     * @param  UUID $uuid
      * @return \Illuminate\Http\Response
      */
     public function edit($uuid)
@@ -99,7 +142,7 @@ class PostController extends Controller
             return view("posts.edit", compact("post"));
         }
 
-        return redirect("posts")->with("notification", "You don't have admin access.");
+        return abort(404);
     }
 
     /**
@@ -130,8 +173,9 @@ class PostController extends Controller
             // Create and save post with validated data
             $post->update($validated);
         }
-
-        return redirect("posts")->with("notification", "You don't have admin access.");
+        else {
+            return abort(404);
+        }
     }
 
     /**
@@ -150,6 +194,6 @@ class PostController extends Controller
             return redirect(route("posts.index"))->with("notification", "\"{$post->title}\" deleted!");
         }
 
-        return redirect("posts")->with("notification", "You don't have admin access.");
+        return abort(404);
     }
 }

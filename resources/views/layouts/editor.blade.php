@@ -15,6 +15,7 @@
 	<link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" rel="stylesheet"/>
 	<!-- MDB 5 -->
 	<link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.3.0/mdb.min.css" rel="stylesheet" />
+	
 	<!-- Main app CSS, shared by all views -->
 	<link href="{{ asset("css/main.css") }}" rel="stylesheet"/>
 	<!-- App CSS -->

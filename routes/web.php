@@ -19,12 +19,13 @@ use App\Http\Controllers\LinkDataController;
 */
 
 Route::get("/", [PostController::class, "index"]);
-Route::resource("posts", [PostController::class]);
+Route::resource("posts", "PostController");
 
 // Override Route::resource with these new and cooler things (so I can use UUID)
 Route::get("post/{uuid}/edit", [PostController::class, "edit"]);
 Route::patch("post/{uuid}", [PostController::class, "update"]);
-Route::get("posts/{slug}/preview", [PostController::class, "preview"]);
+Route::get("post/{uuid}/preview", [PostController::class, "preview"]);
+Route::post("/post/{uuid}/publish", [PostController::class, "publish"]);
 
 Route::get("/dashboard", function() {
 	return view("dashboard.index");

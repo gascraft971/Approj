@@ -6,8 +6,8 @@
 	<meta http-equiv="X-UA-Compatible" content="ie=edge">
 	<title>@yield("title") &middot; Approj</title>
 
-	<!-- Font Awesome -->
-	<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" rel="stylesheet"/>
+	<!-- Bootstrap icons -->
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.0/font/bootstrap-icons.css">
 	<!-- Google Fonts -->
 	<link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" rel="stylesheet"/>
 	<!-- Bootstrap 5 -->
@@ -48,7 +48,7 @@
 			@auth
 			<form method="POST" action="{{ route("posts.store") }}">
 				@csrf
-				<button class="btn btn-primary btn-sm"><i class="fa fa-plus"></i>New Post</button>
+				<button class="btn btn-primary btn-sm"><i class="bi bi-plus icon-1-5x"></i> New Post</button>
 			</form>
 			@endauth
 
@@ -60,7 +60,7 @@
 			@else
 			<div class="dropdown">
 				<button class="dropdown-toggle btn btn-light" type="button" id="accountDropdownButton" data-bs-toggle="dropdown" aria-expanded="false">
-					<i class="far fa-user"></i>
+					<i class="bi bi-person-circle icon-1-5x"></i>
 				</button>
 				<ul class="dropdown-menu dropdown-menu-end" aria-labelledby="#accountDropdownButton">
 					<li><a class="dropdown-item disabled" href="#">{{ Auth::user()->name }}</a></li>

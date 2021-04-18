@@ -35,6 +35,7 @@ $(() => {
             });
 			*/
 			data = JSON.parse($("#post-content").text());
+            initMenu();
             init_editorjs(data);
         }, 10);
     });
@@ -225,6 +226,37 @@ function save_changes(editor) {
         });
     }).catch((error) => {
         console.log("Saving failed: ", error);
+    });
+}
+
+function initMenu() {
+    $("#previewButton").on("click", function() {
+        var modal = new mdb.Modal($("#previewModal")[0])
+        modal.show()
+        $("#previewModal iframe")[0].contentWindow.location.reload(true)
+        $("#previewModal iframe").on("load", function() {
+                $("#previewModal .loading-spinner").css("display", "none");
+                $(this).css("display", "block");
+            });
+    });
+    $("#previewModal .btn-close").on("click", () => {
+        $("#previewModal .loading-spinner").css("display", "block");
+        $("#previewModal iframe").css("display", "none");
+    })
+
+    $("#publishButton").on("click", function() {
+        if(confirm("Are you sure you want to publish this post?\nThis is an irreversible action!")) { // TODO: Polish
+            $.post({
+                url: $("#editorjs").attr("data-publish-route"),
+            }).done((data) => {
+                $("#publishButton")
+                    .prop("disabled", true)
+                    .text("Published!");
+                alert("Sucessfully published post"); // TODO: Polish
+            }).catch((error) => {
+                console.log("Publishing failed: ", error);
+            });
+        }
     });
 }
 

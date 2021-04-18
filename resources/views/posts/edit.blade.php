@@ -14,7 +14,10 @@
 					<ul class="dropdown-menu bg-light shadow-sm">
 						<li><a class="dropdown-item" href="{{ route("posts.index") }}">Home</a></li>
 						<li><hr class="dropdown-divider m-0"/></li>
-						<li><a class="dropdown-item" href="{{ route("posts.create") }}">New</a></li>
+						<form method="POST" action="{{ route("posts.store") }}">
+							@csrf
+							<li><button type="submit" class="dropdown-item" href="{{ route("posts.create") }}">New</button></li>
+						</form>
 						<li><a class="dropdown-item disabled" href="#">Open</a></li>
 						<li><hr class="dropdown-divider m-0"/></li>
 						<li><a class="dropdown-item disabled" href="#">Share</a></li>
@@ -30,7 +33,12 @@
 				</div>
 			</div>
 		</div>
-		<button class="btn btn-primary" data-mdb-toggle="modal" data-mdb-target="#previewModal">PREVIEW</button>
+		@if ($post->published)
+			<button class="btn me-3 shadow-0 btn-outline-secondary" id="publishButton" disabled="disabled">Published!</button>
+		@else
+			<button class="btn me-3 shadow-0 btn-outline-secondary" id="publishButton">Publish</button>
+		@endif
+		<button class="btn me-3 shadow-0 btn-outline-primary" id="previewButton">Preview</button>
     </div>
 </header>
 
@@ -68,7 +76,7 @@
 <div id="editorjs-container" class="container shadow">
 	<br/>
 	<br/>
-	<div id="editorjs" class="d-none" data-post-route="/post/{{ $post->uuid }}"></div>
+	<div id="editorjs" class="d-none" data-post-route="/post/{{ $post->uuid }}" data-publish-route="/post/{{ $post->uuid }}/publish"></div>
 </div>
 
 <div id="toolbar" class="shadow-lg d-flex">
@@ -95,8 +103,11 @@
 	                <h5 class="modal-title" id="exampleModalLabel">Preview</h5>
 	                <button type="button" class="btn-close" data-mdb-dismiss="modal" aria-label="Close"></button>
 	            </div>
-	            <div class="modal-body">
-					<iframe src="/posts/{{ $post->slug }}/preview"></iframe>
+	            <div class="modal-body pt-0">
+					<div class="loading-spinner">
+						Loading...
+					</div>
+					<iframe src="/post/{{ $post->uuid }}/preview"></iframe>
 				</div>
 	        </div>
 	    </div>
