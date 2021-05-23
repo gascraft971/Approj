@@ -29,5 +29,8 @@
 	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.3.0/mdb.min.js"></script>
 	<!-- App scripts -->
 	<script type="text/javascript" src="{{ asset("js/posts/editor.js") }}"></script>
+	<script src="{{ asset("js/main.js") }}"></script>
+	<!-- Dropzone.js -->
+	<script src="{{ asset("js/libs/simple-uploader.min.js") }}"></script>
 </body>
 </html>

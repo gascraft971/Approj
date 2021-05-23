@@ -74,5 +74,45 @@ main {
 }
 
 .icon-2x::before {
-    transform: scale(1.5);
+    transform: scale(2);
+}
+
+.icon-3x::before {
+    transform: scale(3);
+}
+
+.icon-4x::before {
+    transform: scale(4);
+}
+
+.snackbar {
+    visibility: hidden;
+    min-width: 150px;
+    margin-left: -125px;
+    background-color: #333;
+    color: #fff;
+    text-align: center;
+    border-radius: 4px;
+    padding: 10px;
+    position: fixed;
+    z-index: 4;
+    left: 150px;
+    bottom: 30px;
+    font-size: 15px;
+    font-weight: 100;
+}
+  
+.snackbar.show {
+    visibility: visible;
+    animation: snackbar-fadein 0.5s, snackbar-fadeout 0.5s 2.5s;
+}
+  
+@keyframes snackbar-fadein {
+    from {bottom: 0; opacity: 0;}
+    to {bottom: 30px; opacity: 1;}
+}
+  
+@keyframes snackbar-fadeout {
+    from {bottom: 30px; opacity: 1;}
+    to {bottom: 0; opacity: 0;}
 }

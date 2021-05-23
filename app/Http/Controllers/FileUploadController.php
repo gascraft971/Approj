@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Image;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 
@@ -23,8 +24,12 @@ class FileUploadController extends Controller
         $name = "image_" . Str::uuid() . "." . $image->getClientOriginalExtension();
         $destination = public_path("uploads/images");
         $path = $image->move($destination, $name);
-        $url = asset("uploads/images/" . $name);
         
+        // Save image to database
+        $image = Image::create(["name" => $name]);
+        $url = "uploads/images/" . $image->name;
+
+        // Return response to EditorJS
         $response = ["success" => 1, "file" => ["url" => $url]];
         return $response;
     }
@@ -47,6 +52,7 @@ class FileUploadController extends Controller
 
         $destination = public_path("uploads/images/") . $name;
         $path = file_put_contents($destinationPath, file_get_contents($url));
-        return "hi";
+        
+        return $path; // TODO: Finish this, it probably doesn't work
     }
 }

@@ -24,7 +24,19 @@
     width: 100%;
 }
 
+.featured-post a::after {
+	content: '';
+	position: absolute;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	top: 0;
+	background: -webkit-gradient(linear, left bottom, left top, from(rgba(33, 38, 49, 0.3)), to(transparent));
+	background: linear-gradient(to top, rgba(33, 38, 49, 0.3) 0%, transparent 100%);
+}
+
 .featured-post .card-body {
+    z-index: 1;
     position: absolute;
     bottom: 0;
 	width: 100%;

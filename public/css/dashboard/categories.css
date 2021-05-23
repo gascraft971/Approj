@@ -25,6 +25,10 @@
 	flex-shrink: 0;
 }
 
+#pages .search-filter {
+	border-radius: 4px;
+}
+
 #pages table {
 	width: 100%;
 }
@@ -76,4 +80,22 @@
 	justify-content: center;
 	height: 100%;
 	flex-direction: column;
+}
+
+#site-settings {
+	padding-left: 200px;
+	padding-right: 200px;
+	padding-top: 100px;
+}
+
+#site-settings .setting {
+	display: flex;
+}
+
+#site-settings .setting .setting-name {
+	flex-grow: 1;
+}
+
+#site-settings .setting .form-check {
+	display: inline-block;
 }

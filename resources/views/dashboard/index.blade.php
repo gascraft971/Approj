@@ -38,7 +38,7 @@ $sections = [
             <li>
                 <a href="#{{ $section[2] }}" data-sidebar-item="{{ $section[2] }}">
                     <button class="btn btn-block btn-light shadow-0" data-ripple-duration="0s">
-                        <i class="bi-{{ $section[1] }}" style="font-size: 3em;"></i>
+                        <i class="bi-{{ $section[1] }}" style="font-size: 2.7em; font-weight: 100;"></i>
                         <span>{{ $section[0] }}</span>
                     </button>
                 </a>
@@ -48,10 +48,10 @@ $sections = [
         
         <!-- Quick commands -->
         <div class="quick-commands btn-group" role="group">
-            @foreach(["tools", "graph-up", "eye"] as $icon)
-            <button class="btn btn-light btn-sm" data-ripple-duration="0s">
-                <i class="bi-{{ $icon }}" style="font-size: 2em;"></i>
-            </button>
+            @foreach([["tools", "site-settings"], ["graph-up", "site-stats"], ["eye", "site-view-options"]] as $classes)
+            <a href="#{{ $classes[1] }}" class="btn btn-light btn-sm" data-ripple-duration="0s" data-sidebar-item="{{ $classes[1] }}">
+                <i class="bi-{{ $classes[0] }}" style="font-size: 2em;"></i>
+            </a>
             @endforeach
         </div>
     </aside>

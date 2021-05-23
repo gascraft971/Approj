@@ -1,4 +1,5 @@
 $(() => {
+    
     var scripts = [
         "editorjs@latest",
         "header@latest",
@@ -188,6 +189,7 @@ function init_editorjs(text) {
         
         data: text,
     });
+    window.editorJS = editor;
 }
 
 function save_changes(editor) {
@@ -205,7 +207,7 @@ function save_changes(editor) {
             data: {
 				title: title,
 				content: output,
-				category: "CSS",
+				category: "Post",
 				_method: "PATCH"
             },
 			error: (data) => {
@@ -230,6 +232,58 @@ function save_changes(editor) {
 }
 
 function initMenu() {
+    $("#changeImageButton").on("click", () => {
+        var modal = new mdb.Modal($("#imageChangeModal")[0])
+        modal.show();
+        var modalId = $("#imageChangeModal");
+        var uploader = new ss.SimpleUpload({
+            url: "/uploads/file",
+            button: modalId.find(".file-input-btn")[0],
+            name: "image",
+            responseType: "json",
+            allowedExtensions: ["jpg", "jpeg", "png", "gif"],
+            maxSize: 2000,
+            disabledClass: "disabled",
+            onSubmit: function(filename, extension) {
+                modalId.find(".progress").removeClass("d-none");
+                this.setFileSizeBox(modalId.find(".file-size-box")[0]);
+                this.setProgressBar(modalId.find(".progress-bar")[0]);
+            },         
+            onComplete: function(filename, response) {
+                console.log("Uploading image...");
+                modalId.find(".progress").addClass("d-none");
+                if (!response) {
+                    window.snackbar("Upload failed", "bg-danger");
+                }
+                else {
+                    var url = response["file"]["url"];
+                    
+                    window.editorJS.save().then((output) => {
+                        title = $("#post-title-input").val();
+                        output = JSON.stringify(output);
+                        $.post({
+                            url: $("#editorjs").attr("data-post-route"),
+                            data: {
+                                title: title,
+                                content: output,
+                                category: "Post",
+                                image: url,
+                                _method: "PATCH"
+                            },
+                            error: (data) => {
+                                console.log(data.responseText);
+                            }
+                        }).done((data) => {
+                            window.snackbar("Image changed successfully");
+                        });
+                    }).catch((error) => {
+                        console.log("Saving failed: ", error);
+                    });
+                }
+            }
+        });
+    });
+
     $("#previewButton").on("click", function() {
         var modal = new mdb.Modal($("#previewModal")[0])
         modal.show()
@@ -245,18 +299,19 @@ function initMenu() {
     })
 
     $("#publishButton").on("click", function() {
-        if(confirm("Are you sure you want to publish this post?\nThis is an irreversible action!")) { // TODO: Polish
+        window.confirmModal("Are you sure you want to publish this post?<br/>This is an irreversible action!", () => {}, () => {
             $.post({
                 url: $("#editorjs").attr("data-publish-route"),
             }).done((data) => {
                 $("#publishButton")
                     .prop("disabled", true)
                     .text("Published!");
-                alert("Sucessfully published post"); // TODO: Polish
+                window.snackbar("Sucessfully published post");
             }).catch((error) => {
+                window.snackbar("There was an error in publishing the post", "bg-danger")
                 console.log("Publishing failed: ", error);
             });
-        }
+        })
     });
 }
 

@@ -25,8 +25,8 @@
 				@csrf
 				@method("delete")
 				<div class="d-inline">
-					<a href="/post/{{ $post->uuid }}/edit" class="btn btn-light btn-sm"><i class="fas fa-pencil-alt"></i></a>
-					<button type="submit" class="btn btn-light btn-sm"><i class="far fa-trash-alt"></i></button>
+					<a href="/post/{{ $post->uuid }}/edit" class="btn btn-light btn-sm"><i class="bi-pencil"></i></a>
+					<button type="submit" class="btn btn-light btn-sm"><i class="bi-trash"></i></button>
 				</div>
 			</form>
 			@endauth

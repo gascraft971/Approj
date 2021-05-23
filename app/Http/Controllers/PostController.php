@@ -57,10 +57,8 @@ class PostController extends Controller
             // Set basic EditorJS content
             $validated["content"] = '{"time":"' . time() . '","blocks":[],"version":"2.20.2"}';
 
-            // TODO: Change category system
-            $validated["category"] = "CSS";
+            $validated["category"] = "Post";
 
-            // TODO: Add image change option in editor
             $validated["image"] = "https://via.placeholder.com/750x450";
 
             // Create slug from title
@@ -72,7 +70,7 @@ class PostController extends Controller
             // Create and save post with validated data
             $post = Post::create($validated);
 
-            return redirect(route("posts.show", [$post->slug]))->with("notification", "Post created!");
+            return redirect("/post/$post->uuid/edit");
         }
 
         return abort(404);
@@ -160,12 +158,17 @@ class PostController extends Controller
             $validated = $request->validate([
                 "title" => "required|string|min:5|max:100",
                 "content" => "required|string|min:5|max:5000",
+                "image" => "url",
                 "category" => "string|max:30"
             ]);
 
             if($validated["category"] == "") {
-                $validated["category"] = "CSS";
+                $validated["category"] = "Post";
             }
+
+            /*if (!isset($validated["image"])) {
+                $validated["image"] = "https://via.placeholder.com/750x450";
+            }*/
 
             // Create slug from title
             $validated["slug"] = rand(0, 100000000) . "-" . Str::slug($validated["title"], "-");
@@ -193,7 +196,8 @@ class PostController extends Controller
             // Redirect user with a notification
             return redirect(route("posts.index"))->with("notification", "\"{$post->title}\" deleted!");
         }
-
-        return abort(404);
+        else {
+            return abort(404);
+        }
     }
 }

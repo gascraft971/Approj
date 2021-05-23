@@ -65,8 +65,9 @@ aside .settings-sections li button {
 
 aside .settings-sections li span {
     margin-left: 1rem;
-    font-size: 0.9rem;
+    font-size: 1rem;
     text-transform: none;
+    font-weight: 100;
 }
 
 aside .quick-commands {
@@ -87,7 +88,7 @@ aside .quick-commands button {
 aside .active button {
     padding-left: 30px;
     background-color: #e8e8e8;
-    border-left: 10px solid #262626!important;
+    border-left: 7px solid #262626!important;
 }
 
 #collapsed-menu {

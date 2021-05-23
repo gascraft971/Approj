@@ -6,7 +6,7 @@
 <header id="navbar">
     <div class="navbar fixed-top navbar-light bg-light p-2 pb-1" style="justify-content: normal">
 		<img src="{{ asset("images/logo/icon.png") }}" height="50" class="p-1 ms-2"/>
-		<div class="menu ms-3 me-auto">
+		<div class="menu ms-3">
 			<input type="text" id="post-title-input" class="form-control" value="{{ $post->title }}"/>
 			<div class="menu-buttons">
 				<div class="menu-dropdown dropdown">
@@ -33,6 +33,8 @@
 				</div>
 			</div>
 		</div>
+
+		<button class="btn ms-4 shadow-sm me-auto" id="changeImageButton"><i class="bi bi-card-image icon-2x"></i></button>
 		@if ($post->published)
 			<button class="btn me-3 shadow-0 btn-outline-secondary" id="publishButton" disabled="disabled">Published!</button>
 		@else
@@ -96,11 +98,11 @@
 
 <div id="modals">
 	<!-- Page preview modal -->
-	<div class="modal top fade" id="previewModal" tabindex="-1" aria-labelledby="Page preview modal" aria-hidden="true">
-	    <div class="modal-dialog modal-xl  modal-dialog-centered">
+	<div class="modal top fade" id="previewModal" tabindex="-1" aria-hidden="true">
+	    <div class="modal-dialog modal-xl modal-dialog-centered">
 	        <div class="modal-content">
 	            <div class="modal-header border-0">
-	                <h5 class="modal-title" id="exampleModalLabel">Preview</h5>
+	                <h5 class="modal-title">Preview</h5>
 	                <button type="button" class="btn-close" data-mdb-dismiss="modal" aria-label="Close"></button>
 	            </div>
 	            <div class="modal-body pt-0">
@@ -109,6 +111,26 @@
 					</div>
 					<iframe src="/post/{{ $post->uuid }}/preview"></iframe>
 				</div>
+	        </div>
+	    </div>
+	</div>
+
+	<!-- Page preview modal -->
+	<div class="modal top fade" id="imageChangeModal" tabindex="-1" aria-hidden="true">
+	    <div class="modal-dialog modal-dialog-centered">
+	        <div class="modal-content">
+	            <div class="modal-header border-0">
+	                <h5 class="modal-title" id="exampleModalLabel">Upload image</h5>
+	                <button type="button" class="btn-close" data-mdb-dismiss="modal" aria-label="Close"></button>
+	            </div>
+	            <form class="modal-body pt-0">
+					<strong>Max size: 2 MB</strong>
+					<button class="btn btn-primary btn-sm file-input-btn">Choose file</button>
+					Size: <i class="file-size-box"></i>
+					<div class="progress d-none">
+						<div class="progress-bar bg-info" role="progressbar"></div>
+					</div>
+				</form>
 	        </div>
 	    </div>
 	</div>
