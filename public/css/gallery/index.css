@@ -4,10 +4,6 @@
     height: 194px;
     width: 255px;
     box-shadow: 0 .5rem 1rem rgba(0,0,0,.15);
-    display: -webkit-box;
-    display: -moz-box;
-    display: -ms-flexbox;
-    display: -webkit-flex;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -21,7 +17,7 @@
 }
 
 .gallery-link:active {
-    transform: scale(1.2);
+    transform: scale(1.1);
     box-shadow: 0 1rem 3rem rgba(0,0,0,.3);
 }
 
@@ -54,6 +50,8 @@
     height: 100%;
     transition: all .2s;
 	border-radius: 5px;
+    height: 194px;
+    width: 255px;
 }
 
 .upload-btn i {
@@ -78,4 +76,8 @@
 
 .confirm-button i {
 	font-size: 2.5em;
+}
+
+.accordion-button::after {
+    content: "";
 }

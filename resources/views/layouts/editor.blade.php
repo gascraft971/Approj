@@ -20,6 +20,7 @@
 	<link href="{{ asset("css/main.css") }}" rel="stylesheet"/>
 	<!-- App CSS -->
 	<link href="{{ asset("css/posts/edit.css") }}" rel="stylesheet"/>
+	<link href="{{ asset("css/gallery/index.css") }}" rel="stylesheet"/>
 </head>
 <body class="bg-light">
 	@yield("content")
@@ -29,8 +30,9 @@
 	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.3.0/mdb.min.js"></script>
 	<!-- App scripts -->
 	<script type="text/javascript" src="{{ asset("js/posts/editor.js") }}"></script>
+	<script type="text/javascript" src="{{ asset("js/gallery/main.js") }}"></script>
 	<script src="{{ asset("js/main.js") }}"></script>
-	<!-- Dropzone.js -->
+	<!-- Image uploader -->
 	<script src="{{ asset("js/libs/simple-uploader.min.js") }}"></script>
 </body>
 </html>

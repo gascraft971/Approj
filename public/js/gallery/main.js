@@ -1,13 +1,22 @@
 $(() => {
-	$(".gallery-trigger").on("click", () => {
+	// Add CSRF token to all xhr requests
+	XMLHttpRequest.prototype.realSend = XMLHttpRequest.prototype.send;
+    XMLHttpRequest.prototype.send = function(data) {
+        this.setRequestHeader("X-CSRF-TOKEN", $('meta[name="csrf-token"]').attr("content"));
+        this.realSend(data);
+    };
+
+	$(".gallery-trigger").on("click", function() {
 		const modal = new mdb.Modal($("#galleryModal")[0]);
 		modal.show();
+		initGallery(this.onSubmit);
 	});
-
-	initGallery();
 });
 
-function initGallery() {
+function initGallery(onConfirm) {
+	$("#galleryModal .gallery").show();
+	$("#galleryModal .upload-new-image").hide();
+
 	$(".upload-btn").click(function() {
 		$("#galleryModal .gallery").slideUp();
 		$("#galleryModal .upload-new-image").slideDown();
@@ -23,6 +32,10 @@ function initGallery() {
             onSubmit: function(filename, extension) {
                 modal.find(".progress").removeClass("d-none");
                 this.setProgressBar(modal.find(".progress-bar")[0]);
+				window.snackbar("Upload successful!");
+
+				$("#galleryModal .gallery").slideDown();
+				$("#galleryModal .upload-new-image").slideUp();
             },         
             onComplete: function(filename, response) {
                 console.log("Uploading image...");
@@ -33,6 +46,7 @@ function initGallery() {
             }
         });
 	})
+
 	$(".gallery-link").not(".clicked").click(function() {
 		$(".gallery-link.clicked").removeClass("clicked");
 		$(this).addClass("clicked");
@@ -40,8 +54,13 @@ function initGallery() {
 		$(".gallery-link.clicked").click(function() {
 			$(this).removeClass("clicked");
 			$(".confirm-button button").prop("disabled", true).removeClass("btn-success").addClass("btn-light");
-			initGallery();
+			initGallery(onConfirm);
 		});
+	});
+
+	$(".confirm-button button").click(() => {
+		$("#galleryModal .btn-close").trigger("click");
+		onConfirm($(".gallery-link.clicked img.image").attr("data-src"));
 	});
 }
 

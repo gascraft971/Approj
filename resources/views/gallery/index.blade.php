@@ -29,5 +29,7 @@
 	<!-- App scripts -->
 	<script type="text/javascript" src="{{ asset("js/gallery/main.js") }}"></script>
 	<script src="{{ asset("js/main.js") }}"></script>
+	<!-- Image uploader -->
+	<script src="{{ asset("js/libs/simple-uploader.min.js") }}"></script>
 </body>
 </html>

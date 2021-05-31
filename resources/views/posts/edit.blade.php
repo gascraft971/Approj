@@ -34,7 +34,7 @@
 			</div>
 		</div>
 
-		<button class="btn ms-4 shadow-sm me-auto" id="changeImageButton"><i class="bi bi-card-image icon-2x"></i></button>
+		<button class="btn ms-4 shadow-sm me-auto gallery-trigger" id="changeImageButton"><i class="bi bi-card-image icon-2x"></i></button>
 		@if ($post->published)
 			<button class="btn me-3 shadow-0 btn-outline-secondary" id="publishButton" disabled="disabled">Published!</button>
 		@else
@@ -134,5 +134,7 @@
 	        </div>
 	    </div>
 	</div>
+
+	@include("gallery.main")
 </div>
 @endsection

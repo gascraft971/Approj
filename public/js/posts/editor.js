@@ -232,7 +232,7 @@ function save_changes(editor) {
 }
 
 function initMenu() {
-    $("#changeImageButton").on("click", () => {
+    /*$("#changeImageButton").on("click", () => {
         var modal = new mdb.Modal($("#imageChangeModal")[0])
         modal.show();
         var modalId = $("#imageChangeModal");
@@ -258,31 +258,35 @@ function initMenu() {
                 else {
                     var url = response["file"]["url"];
                     
-                    window.editorJS.save().then((output) => {
-                        title = $("#post-title-input").val();
-                        output = JSON.stringify(output);
-                        $.post({
-                            url: $("#editorjs").attr("data-post-route"),
-                            data: {
-                                title: title,
-                                content: output,
-                                category: "Post",
-                                image: url,
-                                _method: "PATCH"
-                            },
-                            error: (data) => {
-                                console.log(data.responseText);
-                            }
-                        }).done((data) => {
-                            window.snackbar("Image changed successfully");
-                        });
-                    }).catch((error) => {
-                        console.log("Saving failed: ", error);
-                    });
+                    
                 }
             }
         });
-    });
+    });*/
+    $("#changeImageButton")[0].onSumbit = function(image) {
+        /*window.editorJS.save().then((output) => {
+            title = $("#post-title-input").val();
+            output = JSON.stringify(output);
+            $.post({
+                url: $("#editorjs").attr("data-post-route"),
+                data: {
+                    title: title,
+                    content: output,
+                    category: "Post",
+                    image: url,
+                    _method: "PATCH"
+                },
+                error: (data) => {
+                    console.log(data.responseText);
+                }
+            }).done((data) => {
+                window.snackbar("Image changed successfully");
+            });
+        }).catch((error) => {
+            console.log("Saving failed: ", error);
+        });*/
+        alert(image);
+    }
 
     $("#previewButton").on("click", function() {
         var modal = new mdb.Modal($("#previewModal")[0])
